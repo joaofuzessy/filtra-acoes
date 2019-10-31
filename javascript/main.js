@@ -39,10 +39,10 @@ function renderPage(resultadoPesquisa){
   var homePageContainer = document.querySelector(".home-page-container");
   var pesquisaContent = document.querySelector(".pesquisa-container .card");
   var va = parseFloat(resultadoPesquisa[0].dadosacoes.valor.replace(',', '.'));
-  var ple = resultadoPesquisa[0].patrimonio.trimestral;
-  var qa = resultadoPesquisa[0].dadosacoes.quantidade;
-  var vpa = (parseFloat(ple.replace('.', ''))/parseInt(qa.replace('.', '')));
-  var difVaVpa = (parseFloat(va) - vpa);
+  var ple = parseFloat(resultadoPesquisa[0].patrimonio.trimestral.replace(',', ''));
+  var qa = parseInt(resultadoPesquisa[0].dadosacoes.quantidade.replace(',', ''));
+  var vpa = ple/qa;
+  var difVaVpa = (va - vpa);
 
   if(homePageContainer){
     homePageContainer.parentNode.removeChild( homePageContainer );
@@ -80,7 +80,7 @@ function renderPage(resultadoPesquisa){
                         </ul>
                         <div class="mini-card">
                           <p>VA = Valor Atual da ação</p>
-                          <h4 class="font-weight-bold">R$${va}</h4>
+                          <h4 class="font-weight-bold">R$${va.replace('.', ',')}</h4>
                         </div>
                         <div class="mini-card">
                           <p>Diferença de VA e VPA</p>

@@ -36,16 +36,35 @@
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <h1 class="display-4 font-weight-bold">Olá, investidor!</h1>
-    <p class="lead">Para entender melhor o universo do mercado financeiro sem complicações e direto ao ponto, você veio ao lugar certo.</p>
-    <hr class="my-4">
-    <p>Para pesquisar uma ação de sua preferência, digite abaixo alguma palavra chave relacionada a ela e tentaremos encontrar informações úteis para você investir.</p>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control termoPesquisa w-75 p-3 mr-sm-2" type="search" placeholder="Digite algo relacionado a sua ação de preferência…" aria-label="Search">
-      <button class="btn btn-dark my-2 my-sm-0 button-filter" type="submit">Pesquisar</button>
-    </form>
+  <div class="container-fluid home-page-container">
+    
+    <div class="jumbotron">
+        <h1 class="display-4 font-weight-bold">Olá, investidor!</h1>
+        <p class="lead">Para entender melhor o universo do mercado financeiro sem complicações e direto ao ponto, você veio ao lugar certo.</p>
+        <hr class="my-4">
+        <p>Para pesquisar uma ação de sua preferência, digite abaixo alguma palavra chave relacionada a ela e tentaremos encontrar informações úteis para você investir.</p>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control termoPesquisa w-75 p-3 mr-sm-2" type="search" placeholder="Digite algo relacionado a sua ação de preferência…" aria-label="Search">
+          <button class="btn btn-dark my-2 my-sm-0 button-filter" type="submit">Pesquisar</button>
+        </form>
+    </div>
+    
   </div>
+
+
+  <div class="container-fluid pesquisa-container">
+    
+      <div class="jumbotron">
+          <h1 class="display-4 font-weight-bold">Não econtrou?</h1>
+          <hr class="my-4">
+          <p>Tente uma nova pesquisa com palavras chave diferentes</p>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control termoPesquisa w-75 p-3 mr-sm-2" type="search" placeholder="Digite algo relacionado a sua ação de preferência…" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 button-filter" type="submit">Pesquisar</button>
+          </form>
+      </div>
+      
+    </div>
 
 
 </body>
@@ -69,16 +88,24 @@ document.querySelector(".button-filter").addEventListener('click', function(e){
 });
 
 function populatePage(dbfake, termoPesquisa){
-var resultadoPesquisa = searchDb(dbfake, termoPesquisa);
-if(Array.isArray(resultadoPesquisa) && resultadoPesquisa.length==0){
-  alert("Infelizmente essa ação não foi encontrada em nossa base de dados.");
-}
+  var resultadoPesquisa = searchDb(dbfake, termoPesquisa);
+  if(Array.isArray(resultadoPesquisa) && resultadoPesquisa.length==0){
+    alert("Infelizmente essa ação não foi encontrada em nossa base de dados.");
+  }
+  else{
+    renderPage(resultadoPesquisa);
+  }
 }
 
 function searchDb(dbfake, termoPesquisa){
 var pesquisa = dbfake.acoes.filter(d => (d.name.title==termoPesquisa));
 console.log(pesquisa);
 return pesquisa;
+}
+
+function renderPage(resultadoPesquisa){
+  document.querySelector(".home-page-container").style.display = "none";
+  document.querySelector(".pesquisa-container").style.display = "block"
 }
 
 

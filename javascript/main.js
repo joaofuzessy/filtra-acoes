@@ -41,8 +41,8 @@ function renderPage(resultadoPesquisa){
   var va = resultadoPesquisa[0].dadosacoes.valor;
   var ple = resultadoPesquisa[0].patrimonio.trimestral;
   var qa = resultadoPesquisa[0].dadosacoes.quantidade;
-  var vpa = ple/qa;
-  var difVaVpa = va - vpa;
+  var vpa = parseFloat(ple)/parseFloat(qa);
+  var difVaVpa = parseFloat(va) - vpa;
 
   if(homePageContainer){
     homePageContainer.parentNode.removeChild( homePageContainer );

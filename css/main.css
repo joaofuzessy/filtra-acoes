@@ -10,6 +10,7 @@ body{
   background-image: url(../assets/images/bg.svg);
   background-position: top right;
   background-size: cover;
+  background-attachment:fixed;
 }
 
 .home-page .jumbotron{

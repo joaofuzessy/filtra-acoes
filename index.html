@@ -27,10 +27,10 @@
       </a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" href="index.html">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sobre o Filtra Ações</a>
+          <a class="nav-link" href="sobre.html">Sobre o Filtra Ações</a>
         </li>
       </ul>
     </div>
@@ -53,11 +53,15 @@
 
 
   <div class="container-fluid pesquisa-container">
+
+      <div class="card">
+         
+      </div>
     
       <div class="jumbotron">
           <h1 class="display-4 font-weight-bold">Não econtrou?</h1>
           <hr class="my-4">
-          <p>Tente uma nova pesquisa com palavras chave diferentes</p>
+          <p>Tente uma nova pesquisa com palavras chave diferentes.</p>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control termoPesquisa w-75 p-3 mr-sm-2" type="search" placeholder="Digite algo relacionado a sua ação de preferência…" aria-label="Search">
             <button class="btn btn-dark my-2 my-sm-0 button-filter" type="submit">Pesquisar</button>
@@ -71,21 +75,26 @@
 
 <script>
 
-document.querySelector(".button-filter").addEventListener('click', function(e){
-  e.preventDefault(); 
-   var dbfake;     
-   var fakeDbUrl = './assets/json/dbfake.json';
-   var termoPesquisa = document.querySelector(".termoPesquisa").value;
-   var request = new XMLHttpRequest();
-   request.open('GET', fakeDbUrl);
-   request.responseType = 'json';
-   request.send();
-   request.onload = function() {
-   dbfake = request.response;
-   populatePage(dbfake, termoPesquisa);
-   }
-   
-});
+var buttonFilters = document.querySelectorAll(".button-filter");
+
+buttonFilters.forEach( button => {
+    button.addEventListener('click', function(e){
+        e.preventDefault(); 
+        var dbfake;     
+        var fakeDbUrl = './assets/json/dbfake.json';
+        var termoPesquisa = document.querySelector(".termoPesquisa").value;
+        var request = new XMLHttpRequest();
+        request.open('GET', fakeDbUrl);
+        request.responseType = 'json';
+        request.send();
+        request.onload = function() {
+          dbfake = request.response;
+          populatePage(dbfake, termoPesquisa);
+        }
+      }
+    );
+  }
+);
 
 function populatePage(dbfake, termoPesquisa){
   var resultadoPesquisa = searchDb(dbfake, termoPesquisa);
@@ -104,8 +113,37 @@ return pesquisa;
 }
 
 function renderPage(resultadoPesquisa){
-  document.querySelector(".home-page-container").style.display = "none";
-  document.querySelector(".pesquisa-container").style.display = "block"
+  var homePageContainer = document.querySelector(".home-page-container");
+  var pesquisaContent = document.querySelector(".pesquisa-container .card");
+
+  if(homePageContainer){
+    homePageContainer.parentNode.removeChild( homePageContainer );
+  }
+  if(document.querySelector(".pesquisa-container .card .card-header")){
+    let cardHeader = document.querySelector('.card-header');
+    let cardBody = document.querySelector('.card-body');
+    cardHeader.parentNode.removeChild(cardHeader);
+    cardBody.parentNode.removeChild(cardBody);
+  } 
+  
+  var cardHeader = document.createElement('div');
+  cardHeader.classList.add('card-header');
+  cardHeader.textContent = resultadoPesquisa[0].name.title;
+  pesquisaContent.appendChild(cardHeader);
+
+  var cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+  pesquisaContent.appendChild(cardBody);
+
+  var cardTitle = document.createElement('h5');
+  cardTitle.classList.add('card-title');
+  cardTitle.textContent = resultadoPesquisa[0].name.first + ' ' + resultadoPesquisa[0].name.last;
+  cardBody.appendChild(cardTitle);
+  
+  
+
+
+  document.querySelector(".pesquisa-container").style.display = "block";
 }
 
 

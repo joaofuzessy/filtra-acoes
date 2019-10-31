@@ -23,3 +23,9 @@ body{
 .home-page .pesquisa-container{
   display: none;
 }
+
+.home-page .pesquisa-container .card{
+  width: 400px;
+  max-width: 80%;
+  margin: 5% auto;
+}

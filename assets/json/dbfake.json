@@ -1,0 +1,49 @@
+{
+  "acoes": [
+      {
+          "name": {
+              "title": "MGLU3",
+              "first": "Magazine",
+              "last": "luiza"
+          },
+          "dadosacoes": {
+              "tipo": "on",
+              "valor": "43,49",
+              "quantidade": "1.524.730.000"
+              },
+              "patrimonio": {
+                  "trimestral": "3.110.950.000"
+              }
+      },
+      {
+          "name": {
+              "title": "PETR3",
+              "first": "Petrobras",
+              "last": "petrolífera"
+        },
+          "dadosacoes": {
+              "tipo": "on",
+              "valor": "31,43",
+              "quantidade": "13.044.500.000"
+               },
+              "patrimonio": {
+                  "trimestral": "303.619.000.000"
+              }
+      },
+      {
+           "name": {
+               "title": "ABEV3",
+              "first": "Ambev",
+              "last": ""
+          },
+          "dadosacoes": {                   
+              "tipo": "on",
+              "valor": "18,68",
+              "quantidade": "15.733.600.000"
+              },
+              "patrimonio": {
+                  "trimestral": "61.625.200.000"
+              }   
+      }
+  ]
+}

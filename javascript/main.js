@@ -45,8 +45,10 @@ function renderPage(resultadoPesquisa){
   if(document.querySelector(".pesquisa-container .card .card-header")){
     let cardHeader = document.querySelector('.card-header');
     let cardBody = document.querySelector('.card-body');
+    let cardInfo = document.querySelector('.card-info');
     cardHeader.parentNode.removeChild(cardHeader);
     cardBody.parentNode.removeChild(cardBody);
+    cardInfo.parentNode.removeChild(cardInfo);
   } 
   
   var cardHeader = document.createElement('div');

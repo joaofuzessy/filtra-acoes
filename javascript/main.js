@@ -38,11 +38,11 @@ return pesquisa;
 function renderPage(resultadoPesquisa){
   var homePageContainer = document.querySelector(".home-page-container");
   var pesquisaContent = document.querySelector(".pesquisa-container .card");
-  var va = parseFloat(resultadoPesquisa[0].dadosacoes.valor.replace(',', '.'));
-  var ple = parseFloat(resultadoPesquisa[0].patrimonio.trimestral.replace(',', ''));
-  var qa = parseInt(resultadoPesquisa[0].dadosacoes.quantidade.replace(',', ''));
-  var vpa = ple/qa;
-  var difVaVpa = (va - vpa);
+  var va = resultadoPesquisa[0].dadosacoes.valor;
+  var ple = resultadoPesquisa[0].patrimonio.trimestral;
+  var qa = resultadoPesquisa[0].dadosacoes.quantidade;
+  var vpa = parseFloat(ple.replace('.',''))/parseFloat(qa.replace('.',''));
+  var difVaVpa = (parseFloat(va.replace(',', '.')) - vpa);
 
   if(homePageContainer){
     homePageContainer.parentNode.removeChild( homePageContainer );

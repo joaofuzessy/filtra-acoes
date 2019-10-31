@@ -29,6 +29,7 @@ body{
   width: 580px;
   max-width: 80%;
   margin: 100px auto 0px;
+  padding-bottom: 45px;
 }
 
 .card .card-header{
@@ -38,9 +39,10 @@ body{
 }
 
 .mini-card{
-  border: 1px solid #2A898C;
-  border-radius: 5px;
-  padding: 10px 15px;
-  width: 40%;
-  margin: 10px auto;
+    border: 1px solid #2A898C;
+    border-radius: 5px;
+    padding: 10px 15px;
+    width: 259px;
+    margin: 10px 15px;
+    float: left;
 }

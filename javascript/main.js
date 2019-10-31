@@ -38,10 +38,10 @@ return pesquisa;
 function renderPage(resultadoPesquisa){
   var homePageContainer = document.querySelector(".home-page-container");
   var pesquisaContent = document.querySelector(".pesquisa-container .card");
-  var va = resultadoPesquisa[0].dadosacoes.valor;
+  var va = parseFloat(resultadoPesquisa[0].dadosacoes.valor.replace(',', '.'));
   var ple = resultadoPesquisa[0].patrimonio.trimestral;
   var qa = resultadoPesquisa[0].dadosacoes.quantidade;
-  var vpa = (parseFloat(ple)/parseFloat(qa));
+  var vpa = (parseFloat(ple.replace('.', ''))/parseInt(qa.replace('.', '')));
   var difVaVpa = (parseFloat(va) - vpa);
 
   if(homePageContainer){
@@ -83,7 +83,7 @@ function renderPage(resultadoPesquisa){
                           <h4 class="font-weight-bold">R$${va}</h4>
                         </div>
                         <div class="mini-card">
-                          <p>Diferença de VPA</p>
+                          <p>Diferença de VA e VPA</p>
                           <h4 class="font-weight-bold">R$${difVaVpa.toFixed(2).replace('.', ',')}</h4>
                         </div>
                         `;

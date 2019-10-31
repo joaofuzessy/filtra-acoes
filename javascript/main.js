@@ -5,7 +5,7 @@ buttonFilters.forEach( button => {
         e.preventDefault(); 
         var dbfake;     
         var fakeDbUrl = './assets/json/dbfake.json';
-        var termoPesquisa = document.querySelector(".termoPesquisa").value;
+        var termoPesquisa = document.querySelector(".termoPesquisa").value.toUpperCase();
         var request = new XMLHttpRequest();
         request.open('GET', fakeDbUrl);
         request.responseType = 'json';

@@ -41,7 +41,7 @@ function renderPage(resultadoPesquisa){
   var va = resultadoPesquisa[0].dadosacoes.valor;
   var ple = resultadoPesquisa[0].patrimonio.trimestral;
   var qa = resultadoPesquisa[0].dadosacoes.quantidade;
-  var vpa = parseFloat(ple.replace(/./g,''))/parseFloat(qa.replace(/./g,''));
+  var vpa = parseFloat(ple.split('.').join(""))/parseFloat(qa.split('.').join(""));
   var difVaVpa = (parseFloat(va.replace(',', '.')) - vpa);
 
   if(homePageContainer){

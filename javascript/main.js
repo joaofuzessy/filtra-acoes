@@ -41,8 +41,8 @@ function renderPage(resultadoPesquisa){
   var va = resultadoPesquisa[0].dadosacoes.valor;
   var ple = resultadoPesquisa[0].patrimonio.trimestral;
   var qa = resultadoPesquisa[0].dadosacoes.quantidade;
-  var vpa = (parseFloat(ple)/parseFloat(qa)).toFixed(2).replace('.', ',');
-  var difVaVpa = (parseFloat(va) - vpa).toFixed(2).replace('.', ',');
+  var vpa = (parseFloat(ple)/parseFloat(qa));
+  var difVaVpa = (parseFloat(va) - vpa);
 
   if(homePageContainer){
     homePageContainer.parentNode.removeChild( homePageContainer );
@@ -74,7 +74,7 @@ function renderPage(resultadoPesquisa){
   cardInfo.classList.add('card-info');
   cardInfo.innerHTML = `
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><span class="font-weight-bold">VPA =</span> Valor Patrimonial da Ação (Valor "REAL" da ação): <span class="font-weight-bold">R$${vpa}</span></li>
+                          <li class="list-group-item"><span class="font-weight-bold">VPA =</span> Valor Patrimonial da Ação (Valor "REAL" da ação): <span class="font-weight-bold">R$${vpa.toFixed(2).replace('.', ',')}</span></li>
                           <li class="list-group-item"><span class="font-weight-bold">PLE =</span> Patrimônio Líquido x Trimestre da Empresa (2019): <span class="font-weight-bold">R$${ple}</span></li>
                           <li class="list-group-item"><span class="font-weight-bold">QA =</span> Quantidade de Ações: <span class="font-weight-bold">${qa}</span></li>
                         </ul>
@@ -84,7 +84,7 @@ function renderPage(resultadoPesquisa){
                         </div>
                         <div class="mini-card">
                           <p>Diferença de VPA</p>
-                          <p class="font-weight-bold">R$${difVaVpa}</p>
+                          <p class="font-weight-bold">R$${difVaVpa.toFixed(2).replace('.', ',')}</p>
                         </div>
                         `;
   pesquisaContent.appendChild(cardInfo);

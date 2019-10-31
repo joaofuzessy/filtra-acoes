@@ -41,8 +41,8 @@ function renderPage(resultadoPesquisa){
   var va = resultadoPesquisa[0].dadosacoes.valor;
   var ple = resultadoPesquisa[0].patrimonio.trimestral;
   var qa = resultadoPesquisa[0].dadosacoes.quantidade;
-  var vpa = (parseFloat(ple)/parseFloat(qa)).toFixed(2);
-  var difVaVpa = (parseFloat(va) - vpa).toFixed(2);
+  var vpa = (parseFloat(ple)/parseFloat(qa)).toFixed(2).replace('.', ',');
+  var difVaVpa = (parseFloat(va) - vpa).toFixed(2).replace('.', ',');
 
   if(homePageContainer){
     homePageContainer.parentNode.removeChild( homePageContainer );

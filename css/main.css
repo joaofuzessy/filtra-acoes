@@ -26,10 +26,10 @@ body{
 }
 
 .card{
-  width: 580px;
+  width: 660px;
   max-width: 80%;
   margin: 100px auto 0px;
-  padding-bottom: 45px;
+  padding-bottom: 10px;
 }
 
 .card .card-header{
@@ -42,7 +42,7 @@ body{
     border: 1px solid #2A898C;
     border-radius: 5px;
     padding: 10px 15px;
-    width: 259px;
+    width: 300px;
     margin: 10px 15px;
     float: left;
 }

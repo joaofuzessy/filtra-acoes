@@ -25,7 +25,13 @@ body{
 }
 
 .home-page .pesquisa-container .card{
-  width: 400px;
+  width: 580px;
   max-width: 80%;
   margin: 5% auto;
+}
+
+.home-page .pesquisa-container .card .card-header{
+  background-color: #2A898C;
+  color: aliceblue;
+  font-weight: bold;
 }

@@ -36,3 +36,11 @@ body{
   color: aliceblue;
   font-weight: bold;
 }
+
+.mini-card{
+  border: 1px solid #2A898C;
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: 40%;
+  margin: 10px auto;
+}

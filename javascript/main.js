@@ -74,15 +74,15 @@ function renderPage(resultadoPesquisa){
   cardInfo.classList.add('card-info');
   cardInfo.innerHTML = `
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><span class="c">VPA =</span> Valor Patrimonial da Ação (Valor "REAL" da ação): <span class="font-weight-bold">R$${vpa}</span></li>
+                          <li class="list-group-item"><span class="font-weight-bold">VPA =</span> Valor Patrimonial da Ação (Valor "REAL" da ação): <span class="font-weight-bold">R$${vpa}</span></li>
                           <li class="list-group-item"><span class="font-weight-bold">PLE =</span> Patrimônio Líquido x Trimestre da Empresa (2019): <span class="font-weight-bold">R$${ple}</span></li>
                           <li class="list-group-item"><span class="font-weight-bold">QA =</span> Quantidade de Ações: <span class="font-weight-bold">${qa}</span></li>
                         </ul>
-                        <div>
+                        <div class="mini-card">
                           <p>VA = Valor Atual da ação</p>
                           <p class="font-weight-bold">R$${va}</p>
                         </div>
-                        <div>
+                        <div class="mini-card">
                           <p>Diferença de VPA</p>
                           <p class="font-weight-bold">R$${difVaVpa}</p>
                         </div>

@@ -1,6 +1,9 @@
+html{
+  font-size: 80%;
+}  
+
 body{
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
 }
 
 .home-page{
@@ -49,7 +52,7 @@ body{
 }
 
 @media all and (min-width: 768px){
-  body{
-    font-size: 16px;
+  html{
+    font-size: 100%;
   } 
 }

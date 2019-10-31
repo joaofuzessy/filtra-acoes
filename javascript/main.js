@@ -62,6 +62,17 @@ function renderPage(resultadoPesquisa){
   cardTitle.classList.add('card-title');
   cardTitle.textContent = resultadoPesquisa[0].name.first + ' ' + resultadoPesquisa[0].name.last;
   cardBody.appendChild(cardTitle);
+
+  var cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  cardInfo.innerHTML = `
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item"><span class="font-weight-bold">VPA =</span> Valor Patrimonial da Ação (Valor "REAL" da ação)</li>
+                          <li class="list-group-item"><span class="font-weight-bold">PLE =</span> Patrimônio Líquido x Trimestre da Empresa (2019): <span class="font-weight-bold">R$${resultadoPesquisa[0].patrimonio.trimestral}</span></li>
+                          <li class="list-group-item"><span class="font-weight-bold">QA =</span> Quantidade de Ações: <span class="font-weight-bold">${resultadoPesquisa[0].dadosacoes.quantidade}</span></li>
+                        </ul>
+                        `;
+  pesquisaContent.appendChild(cardInfo);
   
   document.querySelector(".pesquisa-container").style.display = "block";
 }

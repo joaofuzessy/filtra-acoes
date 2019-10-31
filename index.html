@@ -6,24 +6,43 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
   <title>Filtra Ações</title>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Alterna navegação">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(Página atual)</span></a>
-            <a class="nav-item nav-link" href="#">Destaques</a>
-            <a class="nav-item nav-link" href="#">Preços</a>
-            <a class="nav-item nav-link disabled" href="#">Desativado</a>
-          </div>
-        </div>
-      </nav>
-  <button type="button" class="btn btn-outline-primary">Filtrar ação</button> 
+<body class="home-page">
+  
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <a class="navbar-brand" href="#">
+        <img src="./assets/images/logo.svg">
+      </a>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Sobre o Filtra Ações</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <h1 class="display-4 font-weight-bold">Olá, investidor!</h1>
+    <p class="lead">Para entender melhor o universo do mercado financeiro sem complicações e direto ao ponto, você veio ao lugar certo.</p>
+    <hr class="my-4">
+    <p>Para pesquisar uma ação de sua preferência, digite abaixo alguma palavra chave relacionada a ela e tentaremos encontrar informações úteis para você investir.</p>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control w-75 p-3 mr-sm-2" type="search" placeholder="Digite algo relacionado a sua ação de preferência…" aria-label="Search">
+      <button class="btn btn-dark my-2 my-sm-0" type="submit">Pesquisar</button>
+    </form>
+  </div>
+
+
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

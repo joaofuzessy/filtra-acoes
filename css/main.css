@@ -1,0 +1,21 @@
+html{
+ 
+}
+
+body{
+  font-family: 'Montserrat', sans-serif;
+}
+
+.home-page{
+  background-image: url(../assets/images/bg.svg);
+  background-position: top right;
+  background-size: cover;
+}
+
+.home-page .jumbotron{
+  background-color: #2A898C;
+  color: aliceblue;
+  width: 580px;
+  max-width: 80%;
+  margin: 5% auto;
+}

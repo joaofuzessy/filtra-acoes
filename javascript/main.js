@@ -80,11 +80,11 @@ function renderPage(resultadoPesquisa){
                         </ul>
                         <div class="mini-card">
                           <p>VA = Valor Atual da ação</p>
-                          <p class="font-weight-bold">R$${va}</p>
+                          <h4 class="font-weight-bold">R$${va}</h4>
                         </div>
                         <div class="mini-card">
                           <p>Diferença de VPA</p>
-                          <p class="font-weight-bold">R$${difVaVpa.toFixed(2).replace('.', ',')}</p>
+                          <h4 class="font-weight-bold">R$${difVaVpa.toFixed(2).replace('.', ',')}</h4>
                         </div>
                         `;
   pesquisaContent.appendChild(cardInfo);

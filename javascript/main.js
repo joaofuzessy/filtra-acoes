@@ -22,7 +22,7 @@ buttonFilters.forEach( button => {
 function populatePage(dbfake, termoPesquisa){
   var resultadoPesquisa = searchDb(dbfake, termoPesquisa);
   if(Array.isArray(resultadoPesquisa) && resultadoPesquisa.length==0){
-    alert("Infelizmente essa ação não foi encontrada em nossa base de dados.");
+    renderNotFoundCard();
   }
   else{
     renderPage(resultadoPesquisa);
@@ -31,8 +31,40 @@ function populatePage(dbfake, termoPesquisa){
 
 function searchDb(dbfake, termoPesquisa){
 var pesquisa = dbfake.acoes.filter(d => (d.name.title==termoPesquisa));
-console.log(pesquisa);
+//console.log(pesquisa);
 return pesquisa;
+}
+
+function renderNotFoundCard(){
+  var homePageContainer = document.querySelector(".home-page-container");
+  var pesquisaContent = document.querySelector(".pesquisa-container .card");
+
+  if(homePageContainer){
+    homePageContainer.parentNode.removeChild( homePageContainer );
+  }
+  if(pesquisaContent){
+    pesquisaContent.parentNode.removeChild(cardInfo);
+  } 
+
+  var cardHeader = document.createElement('div');
+  cardHeader.classList.add('card-header');
+  cardHeader.textContent = "Sem resultados...";
+  pesquisaContent.appendChild(cardHeader);
+
+  var cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+  pesquisaContent.appendChild(cardBody);
+
+  var cardInfo = document.createElement('div');
+  cardInfo.classList.add('card-info');
+  cardInfo.innerHTML = `
+                        <div><p>Infelizmente não encontramos uma ação com o título pesquisado. Por favor tente
+                        novamente com outro código<p><div>
+                        `;
+  pesquisaContent.appendChild(cardInfo);
+  
+  document.querySelector(".pesquisa-container").style.display = "block";
+
 }
 
 function renderPage(resultadoPesquisa){

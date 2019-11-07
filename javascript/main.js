@@ -31,7 +31,6 @@ function populatePage(dbfake, termoPesquisa){
 
 function searchDb(dbfake, termoPesquisa){
 var pesquisa = dbfake.acoes.filter(d => (d.name.title==termoPesquisa));
-//console.log(pesquisa);
 return pesquisa;
 }
 
@@ -43,7 +42,7 @@ function renderNotFoundCard(){
     homePageContainer.parentNode.removeChild( homePageContainer );
   }
   if(pesquisaContent){
-    pesquisaContent.parentNode.removeChild(cardInfo);
+    pesquisaContent.parentNode.removeChild( pesquisaContent );
   } 
 
   var cardHeader = document.createElement('div');

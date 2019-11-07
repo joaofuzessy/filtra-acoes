@@ -37,6 +37,7 @@ return pesquisa;
 function renderNotFoundCard(){
   var homePageContainer = document.querySelector(".home-page-container");
   var pesquisaContent = document.querySelector(".pesquisa-container .card");
+  var mainContainer = document.querySelector(".main");
 
   if(homePageContainer){
     homePageContainer.parentNode.removeChild( homePageContainer );
@@ -48,11 +49,11 @@ function renderNotFoundCard(){
   var cardHeader = document.createElement('div');
   cardHeader.classList.add('card-header');
   cardHeader.textContent = "Sem resultados...";
-  pesquisaContent.appendChild(cardHeader);
+  mainContainer.appendChild(cardHeader);
 
   var cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
-  pesquisaContent.appendChild(cardBody);
+  mainContainer.appendChild(cardBody);
 
   var cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
@@ -60,7 +61,7 @@ function renderNotFoundCard(){
                         <div><p>Infelizmente não encontramos uma ação com o título pesquisado. Por favor tente
                         novamente com outro código<p><div>
                         `;
-  pesquisaContent.appendChild(cardInfo);
+  mainContainer.appendChild(cardInfo);
   
   document.querySelector(".pesquisa-container").style.display = "block";
 

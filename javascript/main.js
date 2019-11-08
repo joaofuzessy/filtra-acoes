@@ -49,11 +49,11 @@ function renderNotFoundCard(){
   var cardHeader = document.createElement('div');
   cardHeader.classList.add('card-header');
   cardHeader.textContent = "Sem resultados...";
-  mainContainer.appendChild(cardHeader);
+  feedbackInfo.appendChild(cardHeader);
 
   var cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
-  mainContainer.appendChild(cardBody);
+  feedbackInfo.appendChild(cardBody);
 
   var cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
@@ -79,6 +79,12 @@ function renderPage(resultadoPesquisa){
   if(homePageContainer){
     homePageContainer.parentNode.removeChild( homePageContainer );
   }
+
+  if(feedbackInfo){
+    feedbackInfo.parentNode.removeChild( feedbackInfo );
+  }
+
+
   if(document.querySelector(".pesquisa-container .card .card-header")){
     let cardHeader = document.querySelector('.card-header');
     let cardBody = document.querySelector('.card-body');

@@ -18,11 +18,11 @@ body{
   color: aliceblue;
   width: 660px;
   max-width: 80%;
-  margin: 100px auto 30px;
+  margin: 30px auto 30px;
 }
 
-.pesquisa-container .jumbotron{
-  margin: 30px auto;
+.jumbotron-home{
+  margin: 100px auto 30px;
 }
 
 .home-page .pesquisa-container{
@@ -50,6 +50,10 @@ body{
     max-width: 90%;
     margin: 10px 15px;
     float: left;
+}
+
+.feedBackText{
+  padding: 0px 30px;
 }
 
 @media all and (min-width: 768px){

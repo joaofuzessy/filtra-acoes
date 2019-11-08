@@ -1,31 +1,37 @@
-var buttonFilters = document.querySelectorAll(".button-filter");
+mapButtonFilter();
 
-buttonFilters.forEach( button => {
-    button.addEventListener('click', function(e){
-        e.preventDefault(); 
-        var dbfake;     
-        var fakeDbUrl = './assets/json/dbfake.json';
-        var termoPesquisa = document.querySelector(".termoPesquisa").value.toUpperCase();
-        var request = new XMLHttpRequest();
-        request.open('GET', fakeDbUrl);
-        request.responseType = 'json';
-        request.send();
-        request.onload = function() {
-          dbfake = request.response;
-          populatePage(dbfake, termoPesquisa);
+function mapButtonFilter(){
+  var buttonFilters = document.querySelectorAll(".button-filter");
+
+  buttonFilters.forEach( button => {
+      button.addEventListener('click', function(e){
+          e.preventDefault(); 
+          var dbfake;     
+          var fakeDbUrl = './assets/json/dbfake.json';
+          var termoPesquisa = document.querySelector(".termoPesquisa").value.toUpperCase();
+          var request = new XMLHttpRequest();
+          request.open('GET', fakeDbUrl);
+          request.responseType = 'json';
+          request.send();
+          request.onload = function() {
+            dbfake = request.response;
+            populatePage(dbfake, termoPesquisa);
+          }
         }
-      }
-    );
-  }
-);
+      );
+    }
+  );
+}
 
 function populatePage(dbfake, termoPesquisa){
   var resultadoPesquisa = searchDb(dbfake, termoPesquisa);
   if(Array.isArray(resultadoPesquisa) && resultadoPesquisa.length==0){
     renderNotFoundCard();
+    mapButtonFilter();
   }
   else{
     renderPage(resultadoPesquisa);
+    mapButtonFilter();
   }
 }
 
@@ -34,74 +40,110 @@ var pesquisa = dbfake.acoes.filter(d => (d.name.title==termoPesquisa));
 return pesquisa;
 }
 
+
+function renderJumbotron(){
+
+  let jumbotronPesquisa = document.querySelector(".jumbotronPesquisa");
+
+  if(jumbotronPesquisa){
+    jumbotronPesquisa.parentNode.removeChild( jumbotronPesquisa );
+    }
+
+  
+  let newJumbotronPesquisa = document.createElement('div');
+  newJumbotronPesquisa.classList.add('jumbotron');
+  newJumbotronPesquisa.classList.add('jumbotronPesquisa');
+  newJumbotronPesquisa.innerHTML = `
+                                  <h1 class="display-4 font-weight-bold">Não econtrou?</h1>
+                                  <hr class="my-4">
+                                  <p>Tente uma nova pesquisa com palavras chave diferentes.</p>
+                                  <form class="form-inline my-2 my-lg-0">
+                                    <input class="form-control termoPesquisa w-75 p-3 mr-sm-2" type="search" placeholder="Digite algo relacionado a sua ação de preferência…" aria-label="Search">
+                                    <button class="btn btn-dark my-2 my-sm-0 button-filter" type="submit">Pesquisar</button>
+                                  </form>
+                                `;
+  return newJumbotronPesquisa;
+}
+
+
 function renderNotFoundCard(){
   var homePageContainer = document.querySelector(".home-page-container");
-  var pesquisaContent = document.querySelector(".pesquisa-container .card");
+  var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var feedbackInfo = document.querySelector(".feedback-info");
+  var feedbackInfoCard = document.querySelector(".feedback-info .card");
+  var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
 
-  if(homePageContainer){
-    homePageContainer.parentNode.removeChild( homePageContainer );
+  if(jumbotronHome){
+    jumbotronHome.parentNode.removeChild( jumbotronHome );
   }
-  if(pesquisaContent){
-    pesquisaContent.parentNode.removeChild( pesquisaContent );
+  if(pesquisaCard){
+    pesquisaCard.parentNode.removeChild( pesquisaCard );
   } 
+
+  if(feedbackInfoCard){
+    feedbackInfoCard.parentNode.removeChild( feedbackInfoCard );
+  } 
+
+  var feedbackCard = document.createElement('div');
+  feedbackCard.classList.add('card');
 
   var cardHeader = document.createElement('div');
   cardHeader.classList.add('card-header');
   cardHeader.textContent = "Sem resultados...";
-  feedbackInfo.appendChild(cardHeader);
+  feedbackCard.appendChild(cardHeader);
 
   var cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
-  feedbackInfo.appendChild(cardBody);
+  feedbackCard.appendChild(cardBody);
 
   var cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
   cardInfo.innerHTML = `
-                        <div><p>Infelizmente não encontramos uma ação com o título pesquisado. Por favor tente
-                        novamente com outro código<p><div>
+                        <div class="feedBackText"><p>Infelizmente não encontramos uma ação com o título pesquisado. 
+                        <br>Por favor tente novamente com outro código<p><div>
                         `;
-  feedbackInfo.appendChild(cardInfo);
-  
-  document.querySelector(".pesquisa-container").style.display = "block";
-
+  feedbackCard.appendChild(cardInfo);
+  feedbackInfo.appendChild(feedbackCard);
+  feedbackInfo.appendChild(renderJumbotron());
 }
+
 
 function renderPage(resultadoPesquisa){
   var homePageContainer = document.querySelector(".home-page-container");
-  var pesquisaContent = document.querySelector(".pesquisa-container .card");
+  var pesquisaContent = document.querySelector(".pesquisa-container");
+  var pesquisaCard= document.querySelector(".pesquisa-container .card");
+  var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
+  var feedbackInfo = document.querySelector(".feedback-info");
+  var feedbackInfoCard = document.querySelector(".feedback-info .card");
   var va = resultadoPesquisa[0].dadosacoes.valor;
   var ple = resultadoPesquisa[0].patrimonio.trimestral;
   var qa = resultadoPesquisa[0].dadosacoes.quantidade;
   var vpa = parseFloat(ple.split('.').join(""))/parseFloat(qa.split('.').join(""));
   var difVaVpa = (parseFloat(va.replace(',', '.')) - vpa);
 
-  if(homePageContainer){
-    homePageContainer.parentNode.removeChild( homePageContainer );
+  if(jumbotronHome){
+    jumbotronHome.parentNode.removeChild( jumbotronHome );
   }
 
-  if(feedbackInfo){
-    feedbackInfo.parentNode.removeChild( feedbackInfo );
-  }
+  if(pesquisaCard){
+    pesquisaCard.parentNode.removeChild( pesquisaCard );
+  } 
 
-
-  if(document.querySelector(".pesquisa-container .card .card-header")){
-    let cardHeader = document.querySelector('.card-header');
-    let cardBody = document.querySelector('.card-body');
-    let cardInfo = document.querySelector('.card-info');
-    cardHeader.parentNode.removeChild(cardHeader);
-    cardBody.parentNode.removeChild(cardBody);
-    cardInfo.parentNode.removeChild(cardInfo);
+  if(feedbackInfoCard){
+    feedbackInfoCard.parentNode.removeChild( feedbackInfoCard );
   } 
   
+  var cardPesquisa = document.createElement('div');
+  cardPesquisa.classList.add('card');
+
   var cardHeader = document.createElement('div');
   cardHeader.classList.add('card-header');
   cardHeader.textContent = resultadoPesquisa[0].name.title;
-  pesquisaContent.appendChild(cardHeader);
+  cardPesquisa.appendChild(cardHeader);
 
   var cardBody = document.createElement('div');
   cardBody.classList.add('card-body');
-  pesquisaContent.appendChild(cardBody);
+  cardPesquisa.appendChild(cardBody);
 
   var cardTitle = document.createElement('h5');
   cardTitle.classList.add('card-title');
@@ -125,7 +167,8 @@ function renderPage(resultadoPesquisa){
                           <h4 class="font-weight-bold">R$${(difVaVpa.toFixed(2)).replace('.', ',')}</h4>
                         </div>
                         `;
-  pesquisaContent.appendChild(cardInfo);
-  
+  cardPesquisa.appendChild(cardInfo);
+  pesquisaContent.appendChild(cardPesquisa);
+  pesquisaContent.appendChild(renderJumbotron());
   document.querySelector(".pesquisa-container").style.display = "block";
 }

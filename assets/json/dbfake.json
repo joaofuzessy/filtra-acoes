@@ -2,7 +2,7 @@
   "acoes": [
       {
           "name": {
-              "title": "MGLU3",
+              "title": "mglu3",
               "first": "Magazine",
               "last": "Luiza"
           },
@@ -17,13 +17,13 @@
       },
       {
           "name": {
-              "title": "PETR3",
+              "title": "petr3",
               "first": "Petrobras",
               "last": "petrolífera"
         },
           "dadosacoes": {
               "tipo": "on",
-              "valor": "31,43",
+              "valor": "31.43",
               "quantidade": "13.044.496.930"
                },
               "patrimonio": {
@@ -32,13 +32,13 @@
       },
       {
            "name": {
-               "title": "ABEV3",
+               "title": "abev3",
               "first": "Ambev",
               "last": ""
           },
           "dadosacoes": {                   
               "tipo": "on",
-              "valor": "18,68",
+              "valor": "18.68",
               "quantidade": "15.722.717.698"
               },
               "patrimonio": {

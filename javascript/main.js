@@ -18,6 +18,7 @@ function mapButtonFilter(){
           requestApi.send();
           requestApi.onload = function() {
             apiRequested = JSON.parse(requestApi.response);
+            console.log(apiRequested);
           }
           
           var request = new XMLHttpRequest();

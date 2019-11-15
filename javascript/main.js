@@ -6,45 +6,31 @@ function mapButtonFilter(){
   buttonFilters.forEach( button => {
       button.addEventListener('click', function(e){
           e.preventDefault(); 
-          var dbfake; 
-          var apiRequested;    
+          var dbfake;     
           var fakeDbUrl = './assets/json/dbfake.json';
-          var termoPesquisa = document.querySelector(".termoPesquisa").value.toLowerCase();
-          var apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key=99775757&symbol='+termoPesquisa;
-          
-          var requestApi = new XMLHttpRequest();
-          requestApi.open('GET', apiUrl);
-          requestApi.responseType = 'json';
-          requestApi.send();
-          requestApi.onload = function() {
-            apiRequested = JSON.parse(requestApi.response);
-            console.log(apiRequested);
-          }
-          
+          var termoPesquisa = document.querySelector(".termoPesquisa").value.toUpperCase();
           var request = new XMLHttpRequest();
           request.open('GET', fakeDbUrl);
           request.responseType = 'json';
           request.send();
           request.onload = function() {
             dbfake = request.response;
-            populatePage(dbfake, termoPesquisa, apiRequested);
+            populatePage(dbfake, termoPesquisa);
           }
-
-          
         }
       );
     }
   );
 }
 
-function populatePage(dbfake, termoPesquisa, apiRequested){
+function populatePage(dbfake, termoPesquisa){
   var resultadoPesquisa = searchDb(dbfake, termoPesquisa);
   if(Array.isArray(resultadoPesquisa) && resultadoPesquisa.length==0){
     renderNotFoundCard();
     mapButtonFilter();
   }
   else{
-    renderPage(resultadoPesquisa, apiRequested);
+    renderPage(resultadoPesquisa);
     mapButtonFilter();
   }
 }
@@ -122,18 +108,18 @@ function renderNotFoundCard(){
 }
 
 
-function renderPage(resultadoPesquisa, apiRequested){
+function renderPage(resultadoPesquisa){
   var homePageContainer = document.querySelector(".home-page-container");
   var pesquisaContent = document.querySelector(".pesquisa-container");
   var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
   var feedbackInfo = document.querySelector(".feedback-info");
   var feedbackInfoCard = document.querySelector(".feedback-info .card");
-  var va = apiRequested.results[0].price;;
+  var va = resultadoPesquisa[0].dadosacoes.valor;
   var ple = resultadoPesquisa[0].patrimonio.trimestral;
   var qa = resultadoPesquisa[0].dadosacoes.quantidade;
   var vpa = parseFloat(ple.split('.').join(""))/parseFloat(qa.split('.').join(""));
-  var difVaVpa = (parseFloat(va - vpa));
+  var difVaVpa = (parseFloat(va.replace(',', '.')) - vpa);
 
   if(jumbotronHome){
     jumbotronHome.parentNode.removeChild( jumbotronHome );
@@ -152,7 +138,7 @@ function renderPage(resultadoPesquisa, apiRequested){
 
   var cardHeader = document.createElement('div');
   cardHeader.classList.add('card-header');
-  cardHeader.textContent = apiRequested.results[0].symbol;
+  cardHeader.textContent = resultadoPesquisa[0].name.title;
   cardPesquisa.appendChild(cardHeader);
 
   var cardBody = document.createElement('div');
@@ -161,7 +147,7 @@ function renderPage(resultadoPesquisa, apiRequested){
 
   var cardTitle = document.createElement('h5');
   cardTitle.classList.add('card-title');
-  cardTitle.textContent = apiRequested.results[0].name;
+  cardTitle.textContent = resultadoPesquisa[0].name.first + ' ' + resultadoPesquisa[0].name.last;
   cardBody.appendChild(cardTitle);
 
   var cardInfo = document.createElement('div');

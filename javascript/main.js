@@ -10,7 +10,7 @@ function mapButtonFilter(){
           var apiRequested;    
           var fakeDbUrl = './assets/json/dbfake.json';
           var termoPesquisa = document.querySelector(".termoPesquisa").value.toLowerCase();
-          var apiUrl = 'https://api.hgbrasil.com/finance/stock_price?key=99775757&symbol='+termoPesquisa;
+          var apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key=99775757&symbol='+termoPesquisa;
           
           var requestApi = new XMLHttpRequest();
           requestApi.open('GET', apiUrl);

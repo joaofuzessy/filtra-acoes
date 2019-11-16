@@ -1,57 +1,43 @@
-mapButtonFilter();
+const mapButtonFilter = () =>{
+  let buttonFilters = document.querySelectorAll(".button-filter");
+  buttonFilters.forEach( button => button.addEventListener('click', handleButtonClick));
+}
 
-function mapButtonFilter(){
-  var buttonFilters = document.querySelectorAll(".button-filter");
+const handleButtonClick = (e) => {
+  e.preventDefault();    
+  let termoPesquisa = document.querySelector(".termoPesquisa").value.toUpperCase();
+  callApi(termoPesquisa);
+}
 
-  buttonFilters.forEach( button => {
-      button.addEventListener('click', function(e){
-          e.preventDefault(); 
-          var dbfake; 
-          var apiRequested;    
-          var fakeDbUrl = './assets/json/dbfake.json';
-          var termoPesquisa = document.querySelector(".termoPesquisa").value.toLowerCase();
-          var apiUrl = 'https://api.hgbrasil.com/finance/stock_price?key=99775757&symbol='+termoPesquisa;
-          
-          var requestApi = new XMLHttpRequest();
-          requestApi.open('GET', apiUrl);
-          requestApi.responseType = 'json';
-          requestApi.send();
-          requestApi.onload = function() {
-            apiRequested = requestApi.response;
-          }
-          
-          var request = new XMLHttpRequest();
-          request.open('GET', fakeDbUrl);
-          request.responseType = 'json';
-          request.send();
-          request.onload = function() {
-            dbfake = request.response;
-            populatePage(dbfake, termoPesquisa, apiRequested);
-          }
+const callApi = (termoPesquisa) => {
+  let apiKey = '99775757';
+  let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
+  
+  let requestApi = new XMLHttpRequest();
+  requestApi.open('GET', apiUrl);
+  requestApi.responseType = 'json';
+  requestApi.send();
+  requestApi.onload = function(){
+    try{createObjResponse(requestApi.response, termoPesquisa);}
+    catch{renderNotFoundCard();}
+  }
+}
 
-          
-        }
-      );
+const createObjResponse = (response, termoPesquisa) => {
+    let name = response.results[termoPesquisa].name;
+    let symbol = response.results[termoPesquisa].symbol;
+    let price = response.results[termoPesquisa].price;
+    let marketcap = response.results[termoPesquisa].market_cap;
+    let responseObj = {
+      name: name,
+      symbol: symbol,
+      price: price,
+      marketcap: marketcap
     }
-  );
+    renderPage(responseObj);
 }
-
-function populatePage(dbfake, termoPesquisa, apiRequested){
-  var resultadoPesquisa = searchDb(dbfake, termoPesquisa);
-  if(Array.isArray(resultadoPesquisa) && resultadoPesquisa.length==0){
-    renderNotFoundCard();
-    mapButtonFilter();
-  }
-  else{
-    renderPage(resultadoPesquisa, apiRequested);
-    mapButtonFilter();
-  }
-}
-
-function searchDb(dbfake, termoPesquisa){
-var pesquisa = dbfake.acoes.filter(d => (d.name.title==termoPesquisa));
-return pesquisa;
-}
+  
+  
 
 
 function renderJumbotron(){
@@ -80,7 +66,6 @@ function renderJumbotron(){
 
 
 function renderNotFoundCard(){
-  var homePageContainer = document.querySelector(".home-page-container");
   var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var feedbackInfo = document.querySelector(".feedback-info");
   var feedbackInfoCard = document.querySelector(".feedback-info .card");
@@ -118,21 +103,20 @@ function renderNotFoundCard(){
   feedbackCard.appendChild(cardInfo);
   feedbackInfo.appendChild(feedbackCard);
   feedbackInfo.appendChild(renderJumbotron());
+  mapButtonFilter();
 }
 
 
-function renderPage(resultadoPesquisa, apiRequested){
-  var homePageContainer = document.querySelector(".home-page-container");
+function renderPage(responseObj, ){
   var pesquisaContent = document.querySelector(".pesquisa-container");
   var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
-  var feedbackInfo = document.querySelector(".feedback-info");
   var feedbackInfoCard = document.querySelector(".feedback-info .card");
-  var va = apiRequested.results[0].price;;
-  var ple = resultadoPesquisa[0].patrimonio.trimestral;
-  var qa = resultadoPesquisa[0].dadosacoes.quantidade;
-  var vpa = parseFloat(ple.split('.').join(""))/parseFloat(qa.split('.').join(""));
-  var difVaVpa = (parseFloat(va - vpa));
+  var va = responseObj.price;
+  var ple = responseObj.marketcap;
+  var qa = 1;
+  var vpa = 1;
+  var difVaVpa = 1;
 
   if(jumbotronHome){
     jumbotronHome.parentNode.removeChild( jumbotronHome );
@@ -151,7 +135,7 @@ function renderPage(resultadoPesquisa, apiRequested){
 
   var cardHeader = document.createElement('div');
   cardHeader.classList.add('card-header');
-  cardHeader.textContent = apiRequested.results[0].symbol;
+  cardHeader.textContent = responseObj.symbol;
   cardPesquisa.appendChild(cardHeader);
 
   var cardBody = document.createElement('div');
@@ -160,28 +144,31 @@ function renderPage(resultadoPesquisa, apiRequested){
 
   var cardTitle = document.createElement('h5');
   cardTitle.classList.add('card-title');
-  cardTitle.textContent = apiRequested.results[0].name;
+  cardTitle.textContent = responseObj.name;
   cardBody.appendChild(cardTitle);
 
   var cardInfo = document.createElement('div');
   cardInfo.classList.add('card-info');
   cardInfo.innerHTML = `
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item"><span class="font-weight-bold">VPA =</span> Valor Patrimonial da Ação (Valor "REAL" da ação): <span class="font-weight-bold">R$${vpa.toFixed(2).replace('.', ',')}</span></li>
-                          <li class="list-group-item"><span class="font-weight-bold">PLE =</span> Patrimônio Líquido x Trimestre da Empresa (2019): <span class="font-weight-bold">R$${ple}</span></li>
+                          <li class="list-group-item"><span class="font-weight-bold">VPA =</span> Valor Patrimonial da Ação (Valor "REAL" da ação): <span class="font-weight-bold">${vpa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span></li>
+                          <li class="list-group-item"><span class="font-weight-bold">PLE =</span> Patrimônio Líquido x Trimestre da Empresa (2019): <span class="font-weight-bold">${(ple*1000000).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span></li>
                           <li class="list-group-item"><span class="font-weight-bold">QA =</span> Quantidade de Ações: <span class="font-weight-bold">${qa}</span></li>
                         </ul>
                         <div class="mini-card">
                           <p>VA = Valor Atual da ação</p>
-                          <h4 class="font-weight-bold">R$${va}</h4>
+                          <h4 class="font-weight-bold">${(va.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))}</h4>
                         </div>
                         <div class="mini-card">
                           <p>Diferença de VA e VPA</p>
-                          <h4 class="font-weight-bold">R$${(difVaVpa.toFixed(2)).replace('.', ',')}</h4>
+                          <h4 class="font-weight-bold">${(difVaVpa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))}</h4>
                         </div>
                         `;
   cardPesquisa.appendChild(cardInfo);
   pesquisaContent.appendChild(cardPesquisa);
   pesquisaContent.appendChild(renderJumbotron());
   document.querySelector(".pesquisa-container").style.display = "block";
+  mapButtonFilter();
 }
+
+mapButtonFilter();

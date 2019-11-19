@@ -29,9 +29,9 @@ const callWebInfo = (termoPesquisa) => {
 const callApi = (termoPesquisa) => {
   let apiKey = '99775757';
   let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
-  
+  var proxy = 'https://cors-anywhere.herokuapp.com/';
   let requestApi = new XMLHttpRequest();
-  requestApi.open('GET', apiUrl);
+  requestApi.open('GET', proxy+apiUrl);
   requestApi.responseType = 'json';
   requestApi.send();
   requestApi.onload = function(){

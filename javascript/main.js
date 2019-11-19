@@ -22,7 +22,7 @@ const callWebInfo = (termoPesquisa) => {
     try{
       let totalAcoesContainer = jQuery('#js-category-content > div > div > div > div > div.tv-card-container__columns.tv-sticky-columns > div.tv-card-container__widgets.tv-sticky-columns__column.tv-sticky-columns__column--fix-bottom.tv-sticky-columns__column--layered > div:nth-child(2) > div > div.tv-feed-widget__body.js-widget-body.tv-scroll-button-wrap.tv-scroll-button-wrap--is-at-start.tv-scroll-button-wrap--is-at-end.scrollButtonCircleWrap-1TFUo-U9- > div.tv-scroll-wrap.tv-scroll-wrap--horizontal > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > span.tv-widget-fundamentals__value.apply-overflow-tooltip');
       let totalAcoesText = totalAcoesContainer.text();
-      console.log(totalAcoesText);
+      console.log(totalAcoesText, totalAcoesContainer);
     }
     catch{renderNotFoundCard();}
   }

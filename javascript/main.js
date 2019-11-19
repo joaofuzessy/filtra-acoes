@@ -13,25 +13,25 @@ const handleButtonClick = (e) => {
 
 const callWebInfo = (termoPesquisa) => {
   let webInfoUrl = 'https://br.tradingview.com/symbols/BMFBOVESPA-'+termoPesquisa;
-  
+  var proxy = 'https://cors-anywhere.herokuapp.com/';
   let requestApi = new XMLHttpRequest();
-  requestApi.open('GET', webInfoUrl);
+  requestApi.open('GET', proxy+webInfoUrl);
   requestApi.responseType = 'document';
   requestApi.send();
   requestApi.onload = function(){
     try{
       console.log(jQuery('#js-category-content > div > div > div > div > div.tv-card-container__columns.tv-sticky-columns > div.tv-card-container__widgets.tv-sticky-columns__column.tv-sticky-columns__column--fix-bottom.tv-sticky-columns__column--layered > div:nth-child(2) > div > div.tv-feed-widget__body.js-widget-body.tv-scroll-button-wrap.tv-scroll-button-wrap--is-at-start.tv-scroll-button-wrap--is-at-end.scrollButtonCircleWrap-1TFUo-U9- > div.tv-scroll-wrap.tv-scroll-wrap--horizontal > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > span.tv-widget-fundamentals__value.apply-overflow-tooltip'));
     }
-    catch{}
+    catch{renderNotFoundCard();}
   }
 }
 
 const callApi = (termoPesquisa) => {
   let apiKey = '99775757';
   let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
-  var proxy = 'https://cors-anywhere.herokuapp.com/';
+  
   let requestApi = new XMLHttpRequest();
-  requestApi.open('GET', proxy+apiUrl);
+  requestApi.open('GET', apiUrl);
   requestApi.responseType = 'json';
   requestApi.send();
   requestApi.onload = function(){

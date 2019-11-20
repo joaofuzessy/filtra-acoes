@@ -39,13 +39,14 @@ function getData(termoPesquisa){
 
 function getVolume(termoPesquisa){
   return new Promise (function(resolve, reject){
-  
-    let url = './assets/json/shares.json';
+    
+    let apiKey = 'qH8PW5yn7ogrbmipfMYlgVL66cy38iY0jFtwN3wApdwLfiCDiQdzjiKztkFB';
+    let url = 'https://api.worldtradingdata.com/api/v1/stock?symbol='+termoPesquisa+'.SA&api_token='+apiKey;
     
     let request = new XMLHttpRequest();
     request.onload = function(){
       
-      resolve((this.response)[0][termoPesquisa].quantidade);
+      resolve((this.response).data[0].shares);
     }
     request.onerror = reject;
     request.open('GET', url);

@@ -6,15 +6,17 @@ const mapButtonFilter = () =>{
 function handleButtonClick(e){
   e.preventDefault();    
   let termoPesquisa = document.querySelector(".termoPesquisa").value.toUpperCase();
-  // getData(termoPesquisa).then(function(result){
-  //  let objShareInfo =  createObjResponse(termoPesquisa, result);
-  //  renderPage(objShareInfo);
-  // });
+ 
   Promise.all([getData(termoPesquisa), getVolume(termoPesquisa)]).then(function(values) {
     let objShareInfo =  createObjResponse(termoPesquisa, values[0]);
     let objShareVolume = values[1];
     objShareInfo.volume = objShareVolume;
-    renderPage(objShareInfo);
+    if(objShareInfo.name){
+      renderPage(objShareInfo);
+    }
+    else{
+      renderNotFoundCard();
+    }
   });
 }
 

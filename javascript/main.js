@@ -3,60 +3,73 @@ const mapButtonFilter = () =>{
   buttonFilters.forEach( button => button.addEventListener('click', handleButtonClick));
 }
 
-const handleButtonClick = (e) => {
+function handleButtonClick(e){
   e.preventDefault();    
   let termoPesquisa = document.querySelector(".termoPesquisa").value.toUpperCase();
-  let totalAcoes = callWebInfo(termoPesquisa);
-  callApi(termoPesquisa);
+  // getData(termoPesquisa).then(function(result){
+  //  let objShareInfo =  createObjResponse(termoPesquisa, result);
+  //  renderPage(objShareInfo);
+  // });
+  Promise.all([getData(termoPesquisa), getVolume(termoPesquisa)]).then(function(values) {
+    let objShareInfo =  createObjResponse(termoPesquisa, values[0]);
+    let objShareVolume = values[1];
+    objShareInfo.volume = objShareVolume;
+    renderPage(objShareInfo);
+  });
 }
 
-
-const callWebInfo = (termoPesquisa) => {
-  let webInfoUrl = 'https://br.tradingview.com/symbols/BMFBOVESPA-'+termoPesquisa;
-  var proxy = 'https://cors-anywhere.herokuapp.com/';
-  let requestApi = new XMLHttpRequest();
-  requestApi.open('GET', proxy+webInfoUrl);
-  requestApi.responseType = 'document';
-  requestApi.send();
-  requestApi.onload = function(){
-    try{
-      let totalAcoesContainer = requestApi.response;
-      let totalAcoesText = totalAcoesContainer.querySelector(('#js-category-content > div > div > div > div > div.tv-card-container__columns.tv-sticky-columns > div.tv-card-container__widgets.tv-sticky-columns__column.tv-sticky-columns__column--fix-bottom.tv-sticky-columns__column--layered > div:nth-child(2) > div > div.tv-feed-widget__body.js-widget-body.tv-scroll-button-wrap.tv-scroll-button-wrap--is-at-start.tv-scroll-button-wrap--is-at-end.scrollButtonCircleWrap-1TFUo-U9- > div.tv-scroll-wrap.tv-scroll-wrap--horizontal > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(5) > span.tv-widget-fundamentals__value.apply-overflow-tooltip')).text();
-      console.log(totalAcoesContainer, totalAcoesText);
+function getData(termoPesquisa){
+  return new Promise (function(resolve, reject){
+      
+    let apiKey = '99775757';
+    let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
+    
+    let requestApi = new XMLHttpRequest();
+    requestApi.onload = function(){
+      resolve(this.response);
     }
-    catch{}
-  }
+    requestApi.onerror = reject;
+    requestApi.open('GET', apiUrl);
+    requestApi.responseType = 'json';
+    requestApi.send();
+
+  });
 }
 
-const callApi = (termoPesquisa) => {
-  let apiKey = '99775757';
-  let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
+
+function getVolume(termoPesquisa){
+  return new Promise (function(resolve, reject){
   
-  let requestApi = new XMLHttpRequest();
-  requestApi.open('GET', apiUrl);
-  requestApi.responseType = 'json';
-  requestApi.send();
-  requestApi.onload = function(){
-    try{createObjResponse(requestApi.response, termoPesquisa);}
-    catch{renderNotFoundCard();}
-  }
-}
-
-const createObjResponse = (response, termoPesquisa) => {
-    let name = response.results[termoPesquisa].name;
-    let symbol = response.results[termoPesquisa].symbol;
-    let price = response.results[termoPesquisa].price;
-    let marketcap = response.results[termoPesquisa].market_cap;
-    let responseObj = {
-      name: name,
-      symbol: symbol,
-      price: price,
-      marketcap: marketcap
+    let url = './assets/json/shares.json';
+    
+    let request = new XMLHttpRequest();
+    request.onload = function(){
+      
+      resolve((this.response)[0][termoPesquisa].quantidade);
     }
-    renderPage(responseObj);
+    request.onerror = reject;
+    request.open('GET', url);
+    request.responseType = 'json';
+    request.send();
+
+  });
 }
   
-  
+
+ function createObjResponse(termoPesquisa, response){
+     let name = response.results[termoPesquisa].name;
+     let symbol = response.results[termoPesquisa].symbol;
+     let price = response.results[termoPesquisa].price;
+     let marketcap = response.results[termoPesquisa].market_cap;
+     let responseObj = {
+       name: name,
+       symbol: symbol,
+       price: price,
+       marketcap: marketcap
+     }
+    return (responseObj);
+}
+
 
 
 function renderJumbotron(){
@@ -126,16 +139,17 @@ function renderNotFoundCard(){
 }
 
 
-function renderPage(responseObj, ){
+function renderPage(responseObj ){
+  console.log(responseObj);
   var pesquisaContent = document.querySelector(".pesquisa-container");
   var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
   var feedbackInfoCard = document.querySelector(".feedback-info .card");
   var va = responseObj.price;
   var ple = responseObj.marketcap;
-  var qa = 1;
-  var vpa = 1;
-  var difVaVpa = 1;
+  var qa = responseObj.volume;
+  var vpa = (ple*1000000)/qa;
+  var difVaVpa = va - vpa;
 
   if(jumbotronHome){
     jumbotronHome.parentNode.removeChild( jumbotronHome );

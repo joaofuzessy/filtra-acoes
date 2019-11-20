@@ -9,21 +9,21 @@ function handleButtonClick(e){
  
   Promise.all([getData(termoPesquisa), getVolume(termoPesquisa)]).then(function(values) {
     let objShareInfo =  createObjResponse(termoPesquisa, values[0]);
-    let objShareVolume = values[1];
-    objShareInfo.volume = objShareVolume;
-    if(objShareInfo.name){
-      renderPage(objShareInfo);
-    }
-    else{
-      renderNotFoundCard();
-    }
+      try{
+        let objShareVolume = values[1].data[0].shares;
+        objShareInfo.volume = objShareVolume;
+        renderPage(objShareInfo);
+      }
+      catch(e){
+        renderNotFoundCard();
+      }
   });
 }
 
 function getData(termoPesquisa){
   return new Promise (function(resolve, reject){
       
-    let apiKey = '99775757';
+    let apiKey = '09380cb6';
     let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
     
     let requestApi = new XMLHttpRequest();
@@ -47,8 +47,7 @@ function getVolume(termoPesquisa){
     
     let request = new XMLHttpRequest();
     request.onload = function(){
-      
-      resolve((this.response).data[0].shares);
+      resolve(this.response);
     }
     request.onerror = reject;
     request.open('GET', url);

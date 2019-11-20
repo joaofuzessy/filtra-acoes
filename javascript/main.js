@@ -23,7 +23,7 @@ function handleButtonClick(e){
 function getData(termoPesquisa){
   return new Promise (function(resolve, reject){
       
-    let apiKey = '09380cb6';
+    let apiKey = '99775757';
     let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
     
     let requestApi = new XMLHttpRequest();

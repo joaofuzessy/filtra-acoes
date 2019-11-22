@@ -23,7 +23,7 @@ function handleButtonClick(e){
 function getData(termoPesquisa){
   return new Promise (function(resolve, reject){
       
-    let apiKey = '99775757';
+    let apiKey = '09380cb6';
     let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
     
     let requestApi = new XMLHttpRequest();
@@ -197,6 +197,9 @@ function renderPage(responseObj ){
                         <div class="mini-card">
                           <p>Diferença de VA e VPA</p>
                           <h4 class="font-weight-bold">${(difVaVpa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))}</h4>
+                        </div>
+                        <div>
+                          <button class="btn btn-dark my-2 my-sm-0 button-filter">Favoritar ação</button>
                         </div>
                         `;
   cardPesquisa.appendChild(cardInfo);

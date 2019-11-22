@@ -5,6 +5,9 @@
   "repository": "https://github.com/joaofuzessy/filtra-acoes.git",
   "author": "João Füzessy <joao.fuzessy@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "12.13.0"
+  },
   "dependencies": {
     "express": "^4.17.1"
   }

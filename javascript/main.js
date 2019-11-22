@@ -199,7 +199,7 @@ function renderPage(responseObj ){
                           <h4 class="font-weight-bold">${(difVaVpa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))}</h4>
                         </div>
                         <div>
-                          <button class="btn btn-dark my-2 my-sm-0 button-filter">Favoritar ação</button>
+                          <button class="btn btn-dark my-2 my-sm-0 button-bookmarker">Favoritar ação</button>
                         </div>
                         `;
   cardPesquisa.appendChild(cardInfo);

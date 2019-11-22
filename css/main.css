@@ -46,6 +46,7 @@ body{
     border: 1px solid #2A898C;
     border-radius: 5px;
     padding: 10px 15px;
+    margin-bottom: 15px;
     width: 298px;
     max-width: 90%;
     margin: 10px 15px;
@@ -54,6 +55,11 @@ body{
 
 .feedBackText{
   padding: 0px 30px;
+}
+
+.button-bookmarker{
+ float: right;
+ margin-right: 15px;
 }
 
 @media all and (min-width: 768px){

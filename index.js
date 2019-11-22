@@ -21,6 +21,7 @@ app.use("/assets", express.static(__dirname + '/assets'));
 
 
 app.use('/', router);
-app.listen(8080, function () {
-  console.log('Filtra Ações rodando na porta 8080!')
+var porta = process.env.PORT || 8080;
+app.listen(porta, function () {
+  console.log('Filtra Ações rodando!')
 })

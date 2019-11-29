@@ -93,7 +93,7 @@ function renderJumbotron(){
   newJumbotronPesquisa.classList.add('jumbotron');
   newJumbotronPesquisa.classList.add('jumbotronPesquisa');
   newJumbotronPesquisa.innerHTML = `
-                                  <h1 class="display-4 font-weight-bold">Não econtrou?</h1>
+                                  <h1 class="display-4 font-weight-bold">Não encontrou?</h1>
                                   <hr class="my-4">
                                   <p>Tente uma nova pesquisa com palavras chave diferentes.</p>
                                   <form class="form-inline my-2 my-lg-0">

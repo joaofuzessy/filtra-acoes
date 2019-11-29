@@ -1,9 +1,44 @@
 [{
     "MGLU3": {
-        "quantidade": 190591464
+        "patrimonio": 8.62
+    },
+    "EMBR3": {
+        "patrimonio": 13.47
         },
     "ABEV3": {
-      "quantidade": 190591464
-      }
+        "patrimonio": 284.27
+    },
+    "GOLL4": {
+        "patrimonio": 9.27
+    },
+    "GOLL11": {
+        "patrimonio": 9.25
+    },
+    "AZUL4": {
+        "patrimonio": 17.30
+    },
+    "PETR4": {
+        "patrimonio": 396.47
+    },
+    "CIEL3": {
+        "patrimonio": 21.11
+    },
+    "LREN3": {
+        "patrimonio": 37.23
+    },
+    "AMAR3": {
+        "patrimonio": 2.45
+    },
+    "ARZZ3": {
+        "patrimonio": 5.58
+    },
+    "BBDC4": {
+        "patrimonio": 260.18
+    },
+    "ITUB4": {
+        "patrimonio": 210.54
+    }
+
+
 }]
         

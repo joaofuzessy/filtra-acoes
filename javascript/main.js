@@ -29,7 +29,7 @@ function enableBookmark(responseObj){
 function getData(termoPesquisa){
   return new Promise (function(resolve, reject){
       
-    let apiKey = '99775757';
+    let apiKey = '9880e950';
     let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
     
     let requestApi = new XMLHttpRequest();

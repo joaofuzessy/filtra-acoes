@@ -20,12 +20,6 @@ function handleButtonClick(e){
   });
 }
 
-function enableBookmark(responseObj){
-  document.querySelector("#favoritarAcao").addEventListener('click', function(e){
-    localStorage.setItem(responseObj.symbol, JSON.stringify(responseObj));
-  });
-  };
-
 function getData(termoPesquisa){
   return new Promise (function(resolve, reject){
       
@@ -93,7 +87,7 @@ function renderJumbotron(){
   newJumbotronPesquisa.classList.add('jumbotron');
   newJumbotronPesquisa.classList.add('jumbotronPesquisa');
   newJumbotronPesquisa.innerHTML = `
-                                  <h1 class="display-4 font-weight-bold">Não encontrou?</h1>
+                                  <h1 class="display-4 font-weight-bold">Não econtrou?</h1>
                                   <hr class="my-4">
                                   <p>Tente uma nova pesquisa com palavras chave diferentes.</p>
                                   <form class="form-inline my-2 my-lg-0">
@@ -148,6 +142,7 @@ function renderNotFoundCard(){
 
 
 function renderPage(responseObj ){
+  console.log(responseObj);
   var pesquisaContent = document.querySelector(".pesquisa-container");
   var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
@@ -204,7 +199,7 @@ function renderPage(responseObj ){
                           <h4 class="font-weight-bold">${(difVaVpa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))}</h4>
                         </div>
                         <div>
-                          <button id="favoritarAcao" class="btn btn-dark my-2 my-sm-0 button-bookmarker">Favoritar ação</button>
+                          <button class="btn btn-dark my-2 my-sm-0 button-bookmarker">Favoritar ação</button>
                         </div>
                         `;
   cardPesquisa.appendChild(cardInfo);
@@ -212,7 +207,6 @@ function renderPage(responseObj ){
   pesquisaContent.appendChild(renderJumbotron());
   document.querySelector(".pesquisa-container").style.display = "block";
   mapButtonFilter();
-  enableBookmark(responseObj);
 }
 
 mapButtonFilter();

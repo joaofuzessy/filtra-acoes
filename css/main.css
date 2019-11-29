@@ -53,6 +53,11 @@ body{
     float: left;
 }
 
+#modalInfo .mini-card{
+  width: 200px;
+  display: inline-block;
+}
+
 .feedBackText{
   padding: 0px 30px;
 }
@@ -60,6 +65,16 @@ body{
 .button-bookmarker{
  float: right;
  margin-right: 15px;
+}
+
+#listBookmarks{
+  width: 660px;
+  max-width: 80%;
+  margin: 150px auto 30px;
+}
+#listBookmarks button{
+  float: right;
+  margin-right: 10px;
 }
 
 @media all and (min-width: 768px){

@@ -7,12 +7,16 @@ router.get('/',function(req,res){
     res.sendFile(path.join(__dirname+'/index.html'));
   });
 
-  router.get(['/index.html', '/'],function(req,res){
-    res.sendFile(path.join(__dirname+'/index.html'));
-  });
+router.get(['/index.html', '/'],function(req,res){
+  res.sendFile(path.join(__dirname+'/index.html'));
+});
 
 router.get(['/sobre', '/sobre.html'],function(req,res){
 res.sendFile(path.join(__dirname+'/sobre.html'));
+});
+
+router.get(['/favoritas', '/favoritas.html'],function(req,res){
+res.sendFile(path.join(__dirname+'/favoritas.html'));
 });
 
 app.use("/css", express.static(__dirname + '/css'));

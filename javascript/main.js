@@ -20,10 +20,16 @@ function handleButtonClick(e){
   });
 }
 
+function enableBookmark(responseObj){
+  document.querySelector("#favoritarAcao").addEventListener('click', function(e){
+    localStorage.setItem(responseObj.symbol, JSON.stringify(responseObj));
+  });
+  };
+
 function getData(termoPesquisa){
   return new Promise (function(resolve, reject){
       
-    let apiKey = '9880e950';
+    let apiKey = '99775757';
     let apiUrl = 'https://api.hgbrasil.com/finance/stock_price?format=json-cors&key='+apiKey+'&symbol='+termoPesquisa;
     
     let requestApi = new XMLHttpRequest();
@@ -142,7 +148,6 @@ function renderNotFoundCard(){
 
 
 function renderPage(responseObj ){
-  console.log(responseObj);
   var pesquisaContent = document.querySelector(".pesquisa-container");
   var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
@@ -199,7 +204,7 @@ function renderPage(responseObj ){
                           <h4 class="font-weight-bold">${(difVaVpa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))}</h4>
                         </div>
                         <div>
-                          <button class="btn btn-dark my-2 my-sm-0 button-bookmarker">Favoritar ação</button>
+                          <button id="favoritarAcao" class="btn btn-dark my-2 my-sm-0 button-bookmarker">Favoritar ação</button>
                         </div>
                         `;
   cardPesquisa.appendChild(cardInfo);
@@ -207,6 +212,7 @@ function renderPage(responseObj ){
   pesquisaContent.appendChild(renderJumbotron());
   document.querySelector(".pesquisa-container").style.display = "block";
   mapButtonFilter();
+  enableBookmark(responseObj);
 }
 
 mapButtonFilter();

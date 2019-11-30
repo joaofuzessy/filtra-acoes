@@ -14,7 +14,6 @@
                                                             Não há ações favoritas cadastradas.
                                                           </div>`
   }
- 
   })();
   
 

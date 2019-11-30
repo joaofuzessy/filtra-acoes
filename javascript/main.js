@@ -20,6 +20,32 @@ function handleButtonClick(e){
   });
 }
 
+function userBookmarks(){
+  let cardPesquisa = document.querySelector(".cardPesquisa");
+  let jumbotronPesquisa = document.querySelector(".jumbotronPesquisa");
+  let alertSuccessBookmark = document.createElement('div'); 
+  
+  alertSuccessBookmark.innerHTML = `<div class="shadow alert alert-success alert-dismissible fade show alertSuccessBookmark" role="alert">
+                                      <strong>Pronto!</strong> Sua ação foi salva na aba de Favoritos.
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>`;
+  jumbotronPesquisa.parentNode.insertBefore(alertSuccessBookmark, jumbotronPesquisa);
+ }
+
+
+function enableBookmark(responseObj){
+  document.querySelector("#favoritarAcao").addEventListener('click', function(e){
+    try{
+      localStorage.setItem(responseObj.symbol, JSON.stringify(responseObj));
+      
+    }
+    finally{
+      userBookmarks();
+    }
+  });
+  }
 function getData(termoPesquisa){
   return new Promise (function(resolve, reject){
       
@@ -87,7 +113,7 @@ function renderJumbotron(){
   newJumbotronPesquisa.classList.add('jumbotron');
   newJumbotronPesquisa.classList.add('jumbotronPesquisa');
   newJumbotronPesquisa.innerHTML = `
-                                  <h1 class="display-4 font-weight-bold">Não econtrou?</h1>
+                                  <h1 class="display-4 font-weight-bold">Não encontrou?</h1>
                                   <hr class="my-4">
                                   <p>Tente uma nova pesquisa com palavras chave diferentes.</p>
                                   <form class="form-inline my-2 my-lg-0">
@@ -142,7 +168,6 @@ function renderNotFoundCard(){
 
 
 function renderPage(responseObj ){
-  console.log(responseObj);
   var pesquisaContent = document.querySelector(".pesquisa-container");
   var pesquisaCard= document.querySelector(".pesquisa-container .card");
   var jumbotronHome = document.querySelector(".home-page-container .jumbotron");
@@ -167,6 +192,7 @@ function renderPage(responseObj ){
   
   var cardPesquisa = document.createElement('div');
   cardPesquisa.classList.add('card');
+  cardPesquisa.classList.add('cardPesquisa');
 
   var cardHeader = document.createElement('div');
   cardHeader.classList.add('card-header');
@@ -199,7 +225,10 @@ function renderPage(responseObj ){
                           <h4 class="font-weight-bold">${(difVaVpa.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }))}</h4>
                         </div>
                         <div>
-                          <button class="btn btn-dark my-2 my-sm-0 button-bookmarker">Favoritar ação</button>
+                          <button id="favoritarAcao" class="btn btn-dark my-2 my-sm-0 button-bookmarker">
+                            Favoritar ação  
+                            <img class="dollar" src="./assets/images/dollar.svg"></img>
+                          </button>
                         </div>
                         `;
   cardPesquisa.appendChild(cardInfo);
@@ -207,6 +236,7 @@ function renderPage(responseObj ){
   pesquisaContent.appendChild(renderJumbotron());
   document.querySelector(".pesquisa-container").style.display = "block";
   mapButtonFilter();
+  enableBookmark(responseObj);
 }
 
 mapButtonFilter();

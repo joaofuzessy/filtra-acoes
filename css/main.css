@@ -67,6 +67,11 @@ body{
  margin-right: 15px;
 }
 
+.button-bookmarker .dollar{
+width: 25px;
+margin-left: 12px;
+}
+
 #listBookmarks{
   width: 660px;
   max-width: 80%;
@@ -75,6 +80,13 @@ body{
 #listBookmarks button{
   float: right;
   margin-right: 10px;
+}
+
+.alertSuccessBookmark{
+  width: 660px;
+  max-width: 80%;
+  margin: 20px auto 30px;
+
 }
 
 @media all and (min-width: 768px){
